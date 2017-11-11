@@ -1,0 +1,17 @@
+{
+  "name": "bootstrap_backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Oi Digital",
+  "license": "ISC",
+  "dependencies": {
+    "bunyan": "^1.8.12",
+    "glob": "^7.1.2",
+    "pretty-format": "^21.2.1",
+    "restify": "^6.3.2"
+  }
+}
