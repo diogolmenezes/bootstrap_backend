@@ -17,6 +17,7 @@ server.get('/', (req, res, next) => {
     next();
 });
 
+//TODO: configurar erros
 server.on('InternalServer', function (req, res, err, callback) {
     // this will get fired first, as it's the most relevant listener
     return callback();

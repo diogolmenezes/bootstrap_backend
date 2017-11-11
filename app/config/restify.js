@@ -9,7 +9,7 @@ class RestifyConfig {
     configure() {
 
         this.server = this.restify.createServer({
-            log: this.logger.bunyanLogger
+            // log: this.logger.bunyanLogger
         });
 
         this.applyMiddlewares();
@@ -18,20 +18,14 @@ class RestifyConfig {
 
     }
 
-    // enrichRequest() {
-    //     this.server.pre((req, res, next) => {
-    //         console.log('ID =>', req.id());
-
-    //         req.module = 
-
-    //         next();
-    //     });
-    // }
-
+    // use este método para incluir seus middlewares e plugins, cuidado 
+    // com a ordem de inclusão, isso pode quebrar o fluxo de execução.
     applyMiddlewares() {
-
         this.server.use(this.restify.plugins.bodyParser());
+        this.applyAudit();
+    }
 
+    applyAudit() {
         this.server.on('after', this.restify.plugins.auditLogger({
             log: this.logger.bunyanLogger,
             event: 'after',

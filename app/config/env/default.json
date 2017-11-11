@@ -5,6 +5,7 @@
         "port": 3000
     },
     "log": {
+        "debug": true,
         "bunyan": {
             "name": "Application",
             "streams": [
