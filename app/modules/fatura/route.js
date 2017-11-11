@@ -6,7 +6,7 @@ const route = require('../../config/route');
 // { base: '/minha-aplicacao', module: 'fatura', full: '/minha-aplicacao/fatura' }
 const info = route.info(__filename);
 
-// curl localhost:3000/minha-aplicacao/cliente/1/fatura/12/2017
+// curl -X 'GET' localhost:3000/minha-aplicacao/cliente/1/fatura/12/2017
 server.get(`${info.base}/cliente/:id/${info.module}/:mes/:ano`, controller.carregar.bind(controller));
 
 // Exemplos:
@@ -16,5 +16,5 @@ server.get(`${info.base}/cliente/:id/${info.module}/:mes/:ano`, controller.carre
 // server.post(`${info.base}/cliente/:id/${info.module}`, controller.excluir.bind(controller));
 //
 // Rota: /minha-aplicacao/fatura/1
-// curl -IX 'DELETE' localhost:3000/minha-aplicacao/fatura/1
+// curl -I -X 'DELETE' localhost:3000/minha-aplicacao/fatura/1
 // server.del(`${info.full}/:id`, controller.excluir.bind(controller));
