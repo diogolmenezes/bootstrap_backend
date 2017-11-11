@@ -4,8 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "./node_modules/mocha/bin/mocha ./app/modules/*/test/unit/*.unit.js",
-    "integration": "./node_modules/mocha/bin/mocha ./app/modules/*/test/integration/*.integration.js"
+    "start": "clear;nodemon app",
+    "test": "clear;./node_modules/mocha/bin/mocha ./app/modules/*/test/unit/*.unit.js",
+    "integration": "clear;./node_modules/mocha/bin/mocha ./app/modules/*/test/integration/*.integration.js"
   },
   "author": "Oi Digital",
   "license": "ISC",

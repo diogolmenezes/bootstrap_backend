@@ -15,9 +15,7 @@ Projeto [nome do seu projeto] responsável por [o que seu projeto faz?].
 
 - `npm test`: roda os testes unitários com os relatorios do nyc
 - `npm run test:dev`: roda os testes unitários sem o nyc
-- `npm run test:debug`: roda os testes unitários com debugger ativo
 - `npm run integration`: roda os testes integrados
-- `npm run integration:debug`: roda os testes integrados com debugger ativo
 
 ## Urls
 
