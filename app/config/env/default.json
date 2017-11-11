@@ -4,6 +4,11 @@
         "baseRoute": "/minha-aplicacao",
         "port": 3000
     },
+    "db": {
+        "url": "mongodb://localhost:27017/minha-aplicacao",
+        "user": "",
+        "password": ""
+    },
     "log": {
         "debug": true,
         "bunyan": {

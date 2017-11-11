@@ -10,6 +10,7 @@ Projeto [nome do seu projeto] responsável por [o que seu projeto faz?].
 ## Rodando o projeto
 
 - `npm start`: inicia o servidor em desenvolvimento.
+- `npm start:prod`: inicia o servidor em produção.
 
 ## Rodando os testes
 

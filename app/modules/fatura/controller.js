@@ -3,7 +3,7 @@ const applicationError = require('../../config/errors');
 // Esse é um controller de exemplo, renomeie e altere de acordo com o seu projeto
 class FaturaController {
     constructor() {
-        this.faturaService = require('./service');
+        this.faturaService = require('./service/fatura-service');
         this.logger = require('../../config/log')({ module: 'Fatura Controller' });
     }
 

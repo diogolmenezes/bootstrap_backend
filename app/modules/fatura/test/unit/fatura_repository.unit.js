@@ -1,9 +1,9 @@
 const expect = require('chai').expect;
 const sinon = require('sinon');
 
-describe('Fatura Controller', () => {
+describe('Fatura Repository', () => {
 
-    const controller = require('../../controller');
+    const repository = require('../../repository/fatura-repository');
 
     it('Deve ...', (done) => {
         done();

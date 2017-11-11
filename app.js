@@ -2,6 +2,7 @@ const config = require('./app/config');
 const server = require('./app/config/restify').server;
 const route = require('./app/config/route');
 const util = require('./app/util');
+const database = require('./app/config/database');
 const logger = require('./app/config/log')();
 const applicationErrors = require('./app/config/errors');
 
@@ -21,5 +22,15 @@ server.get('/', (req, res, next) => {
 
 // repassa todos os erros para o handler padrão da aplicação
 server.on('restifyError', applicationErrors.handle.bind(applicationErrors));
+
+// finaliza a conexão com o banco sempre que o restify for finalizado
+server.on('close', () => {
+    util.display(`O Servidor do restify foi finalizado.`);
+    database.connection.close();
+});
+
+process.on('SIGINT', function () {
+    server.close();
+});
 
 module.exports = server;
