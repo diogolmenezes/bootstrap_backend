@@ -1,5 +1,22 @@
 {
     "app": {
+        "name": "Minha Aplicação",
+        "baseRoute": "/minha-aplicacao",
         "port": 3000
+    },
+    "log": {
+        "debug": false,
+        "bunyan": {
+            "name": "Application",
+            "streams": [
+                {
+                    "level": "debug",
+                    "type": "rotating-file",
+                    "path": "log/{hostname}.log",
+                    "period": "1d",
+                    "count": 3
+                }
+            ]
+        }
     }
 }
