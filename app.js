@@ -27,3 +27,5 @@ server.on('restifyError', function (req, res, err, callback) {
     // this is fired second.
     return callback();
 });
+
+module.exports = server;
