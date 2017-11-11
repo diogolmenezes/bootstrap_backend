@@ -13,7 +13,7 @@ describe('Fatura', () => {
         supertest(server)
             .get('/minha-aplicacao/cliente/1/fatura/12/2017')
             .expect('Content-Type', /json/)
-            .expect(200)
+            .expect(400)
             .end(function (err, res) {
                 if (err) throw err;
                 done();
