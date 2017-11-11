@@ -14,6 +14,8 @@ class FaturaService {
             this.logger.debug('A fatura foi encontrada', fatura);
 
             resolve(fatura);
+            //resolve();
+            //reject('Erro no calculo da fatura')
         });
     }
 }

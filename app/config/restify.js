@@ -22,7 +22,7 @@ class RestifyConfig {
     // com a ordem de inclusão, isso pode quebrar o fluxo de execução.
     applyMiddlewares() {
         this.server.use(this.restify.plugins.bodyParser());
-        this.applyAudit();
+        //this.applyAudit();
     }
 
     applyAudit() {

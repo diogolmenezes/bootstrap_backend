@@ -2,6 +2,8 @@ const config = require('./app/config');
 const server = require('./app/config/restify').server;
 const route = require('./app/config/route');
 const util = require('./app/util');
+const logger = require('./app/config/log')();
+const applicationErrors = require('./app/config/errors');
 
 // iniciando o servidor web
 server.listen(config.app.port, () => {
@@ -17,15 +19,7 @@ server.get('/', (req, res, next) => {
     next();
 });
 
-//TODO: configurar erros
-server.on('InternalServer', function (req, res, err, callback) {
-    // this will get fired first, as it's the most relevant listener
-    return callback();
-});
-
-server.on('restifyError', function (req, res, err, callback) {
-    // this is fired second.
-    return callback();
-});
+// repassa todos os erros para o handler padrão da aplicação
+server.on('restifyError', applicationErrors.handle.bind(applicationErrors));
 
 module.exports = server;

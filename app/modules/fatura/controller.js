@@ -1,3 +1,5 @@
+const applicationError = require('../../config/errors');
+
 // Esse é um controller de exemplo, renomeie e altere de acordo com o seu projeto
 class FaturaController {
     constructor() {
@@ -18,17 +20,17 @@ class FaturaController {
                     if (fatura)
                         res.send(fatura);
                     else
-                        res.send(404);
+                        next(applicationError.throw('A fatura não foi encontrada', 'NotFoundError'));
                 })
                 .catch(erro => {
-                    this.logger.error('Erro inesperado', erro);
-                    res.send(500, { mensagem: 'Erro inesperado ao carregar fatura.' })
+                    // caso o erro não seja do tipo Erro, o métod throw lança automaticamente um BusinesError
+                    next(applicationError.throw(erro));
                 });
         }
-        else
-            res.send(400, { mensagem: 'Campos obrigatórios não preenchidos.' });
-
-        next();
+        else {
+            // envia um erro 400 para o o método handle do error handler padrão em /app/config/errors.js
+            next(applicationError.throw('Campos obrigatórios não preenchidos.', 'BadRequestError'));
+        }
     }
 }
 
