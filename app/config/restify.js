@@ -21,8 +21,9 @@ class RestifyConfig {
     // use este método para incluir seus middlewares e plugins, cuidado 
     // com a ordem de inclusão, isso pode quebrar o fluxo de execução.
     applyMiddlewares() {
+        this.server.use(this.restify.plugins.queryParser());
         this.server.use(this.restify.plugins.bodyParser());
-        //this.applyAudit();
+        this.applyAudit();
     }
 
     applyAudit() {

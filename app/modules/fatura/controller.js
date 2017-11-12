@@ -17,20 +17,22 @@ class FaturaController {
         if (id, mes, ano) {
             this.faturaService.carregar(id, mes, ano)
                 .then(fatura => {
-                    if (fatura)
+
+                    if (fatura) {
                         res.send(fatura);
-                    else
-                        next(applicationError.throw('A fatura não foi encontrada', 'NotFoundError'));
+                        return next();
+                    }
+
+                    // envia um erro 404 para o o método handle do error handler padrão em /app/config/errors.js
+                    return next(applicationError.throw('A fatura não foi encontrada', 'NotFoundError'));
                 })
                 .catch(erro => {
                     // caso o erro não seja do tipo Erro, o métod throw lança automaticamente um BusinesError
-                    next(applicationError.throw(erro));
+                    return next(applicationError.throw(erro));
                 });
         }
-        else {
-            // envia um erro 400 para o o método handle do error handler padrão em /app/config/errors.js
-            next(applicationError.throw('Campos obrigatórios não preenchidos.', 'BadRequestError'));
-        }
+        else
+            return next(applicationError.throw('Campos obrigatórios não preenchidos.', 'BadRequestError'));
     }
 }
 
