@@ -10,7 +10,7 @@ class Database {
 
     connect() {
         if (this.config.db) {
-            this.mongoose.connect(this.config.db.url, { useMongoClient: true })
+            this.mongoose.connect(this.config.db.url, this.config.db.o)
                 .then(() => {
                     this.logger.debug(`Conectado com sucesso no banco de dados [${this.config.db.url}]`);
                 })

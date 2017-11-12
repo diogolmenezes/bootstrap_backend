@@ -6,8 +6,14 @@
     },
     "db": {
         "url": "mongodb://localhost:27017/minha-aplicacao",
-        "user": "",
-        "password": ""
+        "options": {
+            "useMongoClient": true,
+            "poolSize": 10,
+            "auth": {
+                "user": "",
+                "password": ""
+            }
+        }
     },
     "log": {
         "debug": false,
