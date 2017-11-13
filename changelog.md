@@ -27,3 +27,4 @@
 - Colocar configurações do docker
 - Formatação do request como serializer do bunyan
 - Teste do new Error();
+- Passar as configuracoes para o construtor.
