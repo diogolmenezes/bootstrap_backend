@@ -1,3 +1,5 @@
+// Classe responsavel por criar e configurar a instância do restify
+// A documentação do restify pode ser encontrada em http://restify.com/
 class RestifyConfig {
     constructor() {
         this.config = require('../config');
@@ -9,7 +11,7 @@ class RestifyConfig {
     configure() {
 
         this.server = this.restify.createServer({
-            // log: this.logger.bunyanLogger
+            log: this.logger.bunyanLogger
         });
 
         this.applyMiddlewares();
@@ -20,19 +22,31 @@ class RestifyConfig {
 
     // use este método para incluir seus middlewares e plugins, cuidado 
     // com a ordem de inclusão, isso pode quebrar o fluxo de execução.
+    // http://restify.com/docs/plugins-api/
     applyMiddlewares() {
+
+        this.server.use(this.restify.plugins.acceptParser(this.server.acceptable));
+        this.server.use(this.restify.plugins.authorizationParser());
+        this.server.use(this.restify.plugins.gzipResponse());
         this.server.use(this.restify.plugins.queryParser());
         this.server.use(this.restify.plugins.bodyParser());
-        this.applyAudit();
-    }
 
-    applyAudit() {
-        this.server.on('after', this.restify.plugins.auditLogger({
-            log: this.logger.bunyanLogger,
-            event: 'after',
-            server: this.server,
-            logMetrics: 'logBuffer'
+        // controle de rate limit
+        this.server.use(this.restify.plugins.throttle({
+            burst: 10,  // requests concorrentes no máximo
+            rate: 0.5,  // 1 request / 2 segundos
+            ip: true
+            // inativando o ratelimit para um IP qualquer
+            // ,overrides: {
+            //     '192.168.1.1': {
+            //         rate: 0,        // unlimited
+            //         burst: 0
+            //     }
+            // }
         }));
+
+        // habilitando o logs do request e do response
+        require('./plugins/request-logger')(this.server).configure();
     }
 }
 

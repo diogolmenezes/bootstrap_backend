@@ -1,3 +1,4 @@
+// Classe responsável por gerenciar e prover logs para a aplicação
 class Log {
     constructor({ bunyanLogger, module }) {
         this.os = require('os');
@@ -13,6 +14,8 @@ class Log {
         this.module = module ? `${this.config.app.name} - ${module} =>` : `${this.config.app.name} =>`;
     }
 
+    // Exibe o log de maneira formatada no console
+    // Ex.: Minha Aplicação - Modulo => Carregando alguma coisa { cpf: '12345678912' }
     console(msg, obj) {
         console.log(`${this.module} ${msg} ${obj ? this.pretty(obj, { min: true }) : ''}`);
     }
@@ -68,10 +71,10 @@ class Log {
     // Metodo responsavel por enviar o log para o bunyan.
     // Por padrao, todos os objetos enviados são logados como string
     // caso você precise que algum objeto seja logado como json para que seja mapeado como um campo separado no elasticsearch,
-    // envia a propriedade natural:
+    // envie a propriedade "natural":
     //   logger.debug('Mensagem', { natural: { tempoDeResposta: 1300 } });
     // 
-    // Caso seja necessário logar um objeto como json e um como string envie as propriedades natural e pretty
+    // Caso seja necessário logar um objeto como json e um outro objeto como string na mesma chamada, envie as propriedades "natural" e "pretty"
     //   logger.debug('Mensagem', { natural: { tempoDeResposta: 1300 }, pretty: response });
     write({ type, module = this.module, msg, obj }) {
 
@@ -95,6 +98,8 @@ class Log {
     }
 }
 
+// Para criar uma nova instancia de log faça
+// let logger = require('app/config/log')({ module: 'Nome do Modulo' });
 module.exports = function (options = {}) {
     return new Log(options);
 }

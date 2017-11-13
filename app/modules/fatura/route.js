@@ -17,8 +17,9 @@ server.get(`${info.base}/cliente/:id/${info.module}/:mes/:ano`, controller.carre
 // server.post({ path: `${info.base}/cliente/:id/${info.module}`, version: '2.0.1' }, controller.carregarV2.bind(controller));
 //
 // Rota Autenticada:
-// curl -H 'x-authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7ImxvZ2luIjoiZGlvZ28ubGVpdGFvQG9pLm5ldC5iciIsInBlcmZpbCI6ImFkbWluIn0sImlhdCI6MTUxMDQ1NTg3MX0.q8ZxxZ893JGi490N0FAFrFAaNNl6TDloagprfMBUDNo' -X 'GET' localhost:3000/rota-autenticada
-// curl -H 'x-authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7ImxvZ2luIjoiZGlvZ28ubGVpdGFvQG9pLm5ldC5iciIsInBlcmZpbCI6ImFkbWluIn0sImlhdCI6MTUxMDQ1NjMxMCwiZXhwIjoxNTEwNDU2MzIwfQ.E861Vz01xqNCf0-vuLGEH6LVy_P4qGP41-rTmDrOARE' -X 'GET' localhost:3000/rota-autenticada
+// curl -H 'Authorization: Baerer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7ImxvZ2luIjoiZGlvZ28ubGVpdGFvQG9pLm5ldC5iciIsInBlcmZpbCI6ImFkbWluIn0sImlhdCI6MTUxMDQ1NTg3MX0.q8ZxxZ893JGi490N0FAFrFAaNNl6TDloagprfMBUDNo' -X 'GET' localhost:3000/rota-autenticada
+// curl -H 'Authorization: Baerer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7ImxvZ2luIjoiZGlvZ28ubGVpdGFvQG9pLm5ldC5iciIsInBlcmZpbCI6ImFkbWluIn0sImlhdCI6MTUxMDQ1NjMxMCwiZXhwIjoxNTEwNDU2MzIwfQ.E861Vz01xqNCf0-vuLGEH6LVy_P4qGP41-rTmDrOARE' -X 'GET' localhost:3000/rota-autenticada
+// curl -X 'GET' localhost:3000/rota-autenticada
 // server.get('/rota-autenticada', authentication.protect.bind(authentication), function (req, res, next) {
 //     res.send('Funciona!');
 //     console.log(req.user);

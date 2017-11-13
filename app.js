@@ -1,5 +1,6 @@
 const config = require('./app/config');
 const server = require('./app/config/restify').server;
+const audit = require('./app/config/audit');
 const route = require('./app/config/route');
 const util = require('./app/util');
 const database = require('./app/config/database');
@@ -32,5 +33,9 @@ server.on('close', () => {
 process.on('SIGINT', function () {
     server.close();
 });
+
+// habilita ou não a auditoria
+if (config.audit.enabled)
+    audit.configure();
 
 module.exports = server;

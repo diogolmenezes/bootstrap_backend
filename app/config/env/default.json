@@ -32,5 +32,21 @@
             "secret": "49b4e2f9-ec31-4758-bae5-741a80e0e8de",
             "expiresIn": "1h"
         }
+    },
+    "audit": {
+        "enabled": true,
+        "printLog": true,
+        "bunyan": {
+            "name": "Audit",
+            "streams": [
+                {
+                    "level": "debug",
+                    "type": "rotating-file",
+                    "path": "log/audit.log",
+                    "period": "1d",
+                    "count": 3
+                }
+            ]
+        }
     }
 }

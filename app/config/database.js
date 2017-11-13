@@ -1,3 +1,4 @@
+// Classe responsável por gerenciar a conexão com o banco de dados (MongoDB)
 class Database {
     constructor() {
         this.config = require('../config');
