@@ -8,11 +8,7 @@
         "url": "mongodb://localhost:27017/minha-aplicacao",
         "options": {
             "useMongoClient": true,
-            "poolSize": 10,
-            "auth": {
-                "user": "",
-                "password": ""
-            }
+            "poolSize": 10
         }
     },
     "log": {
@@ -24,6 +20,29 @@
                     "level": "debug",
                     "type": "rotating-file",
                     "path": "log/{hostname}.log",
+                    "period": "1d",
+                    "count": 3
+                }
+            ]
+        }
+    },
+    "authentication": {
+        "jwt": {
+            "enabled": "true",
+            "secret": "49b4e2f9-ec31-4758-bae5-741a80e0e8de",
+            "expiresIn": "1h"
+        }
+    },
+    "audit": {
+        "enabled": true,
+        "printLog": true,
+        "bunyan": {
+            "name": "Audit",
+            "streams": [
+                {
+                    "level": "debug",
+                    "type": "rotating-file",
+                    "path": "log/audit.log",
                     "period": "1d",
                     "count": 3
                 }
