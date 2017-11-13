@@ -8,7 +8,7 @@ const route = require('../../config/route');
 const info = route.info(__filename);
 
 // curl -X 'GET' localhost:3000/minha-aplicacao/cliente/1/fatura/12/2017
-server.get(`${info.base}/cliente/:id/${info.module}/:mes/:ano`, controller.carregar.bind(controller));
+server.get(`${info.base}/cliente/:id/${info.module}/:mes/:ano`, controller._before.bind(controller), controller.carregar.bind(controller));
 
 // Exemplos:
 //

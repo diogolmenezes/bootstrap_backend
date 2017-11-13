@@ -11,13 +11,14 @@ class Log {
 
         this.bunyanLogger = bunyanLogger || this.bunyan.createLogger(this.config.log.bunyan);
 
-        this.module = module ? `${this.config.app.name} - ${module} =>` : `${this.config.app.name} =>`;
+        this.prefix = this.buildPrefix(module);
     }
 
     // Exibe o log de maneira formatada no console
     // Ex.: Minha Aplicação - Modulo => Carregando alguma coisa { cpf: '12345678912' }
-    console(msg, obj) {
-        console.log(`${this.module} ${msg} ${obj ? this.pretty(obj, { min: true }) : ''}`);
+    console(type, msg, obj) {
+        if (type !== 'trace')
+            console.log(`${type.toUpperCase()} ${this.prefix} ${msg} ${obj ? this.pretty(obj, { min: true }) : ''}`);
     }
 
     info(msg, obj) {
@@ -68,6 +69,10 @@ class Log {
         });
     }
 
+    child(props, serializers) {
+        return this.bunyanLogger.child(props, serializers);
+    }
+
     // Metodo responsavel por enviar o log para o bunyan.
     // Por padrao, todos os objetos enviados são logados como string
     // caso você precise que algum objeto seja logado como json para que seja mapeado como um campo separado no elasticsearch,
@@ -76,10 +81,10 @@ class Log {
     // 
     // Caso seja necessário logar um objeto como json e um outro objeto como string na mesma chamada, envie as propriedades "natural" e "pretty"
     //   logger.debug('Mensagem', { natural: { tempoDeResposta: 1300 }, pretty: response });
-    write({ type, module = this.module, msg, obj }) {
+    write({ type, prefix = this.prefix, msg, obj }) {
 
         if (this.config.log.debug)
-            this.console(msg, obj);
+            this.console(type, msg, obj);
 
         if (obj) {
             if (obj.natural) {
@@ -91,10 +96,16 @@ class Log {
             else
                 obj = { pretty: this.pretty(obj) };
 
-            this.bunyanLogger[type](obj, `${this.module} ${msg}`);
+            this.bunyanLogger[type](obj, `${this.prefix} ${msg}`);
         }
         else
-            this.bunyanLogger[type](`${this.module} ${msg}`);
+            this.bunyanLogger[type](`${this.prefix} ${msg}`);
+    }
+
+    // cria um prefixo para o log
+    buildPrefix(module) {
+        module = module ? ` - ${module}` : '';
+        return `${this.config.app.name}${module} => `;
     }
 }
 

@@ -11,13 +11,12 @@ class RestifyConfig {
     configure() {
 
         this.server = this.restify.createServer({
-            log: this.logger.bunyanLogger
+            log: this.logger
         });
 
         this.applyMiddlewares();
 
         return this.server;
-
     }
 
     // use este método para incluir seus middlewares e plugins, cuidado 
@@ -30,20 +29,8 @@ class RestifyConfig {
         this.server.use(this.restify.plugins.gzipResponse());
         this.server.use(this.restify.plugins.queryParser());
         this.server.use(this.restify.plugins.bodyParser());
-
-        // controle de rate limit
-        this.server.use(this.restify.plugins.throttle({
-            burst: 10,  // requests concorrentes no máximo
-            rate: 0.5,  // 1 request / 2 segundos
-            ip: true
-            // inativando o ratelimit para um IP qualquer
-            // ,overrides: {
-            //     '192.168.1.1': {
-            //         rate: 0,        // unlimited
-            //         burst: 0
-            //     }
-            // }
-        }));
+        this.server.use(this.restify.plugins.requestLogger());
+        this.server.use(this.restify.plugins.throttle({ burst: 10, rate: 0.5, ip: true }));
 
         // habilitando o logs do request e do response
         require('./plugins/request-logger')(this.server).configure();

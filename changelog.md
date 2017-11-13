@@ -19,8 +19,12 @@
 
 # Pendencias
 
+- criar uma classe Base para todos os controller e para todas as services
+- manter o request ID por todos os logs ( testar simultaneamente )
 - teste do new Error();
 - bug no integration test
-- manter o request ID por todos os logs ( quem sabe colocar no modulo )
 - hostname no log de auditoria
-
+- jenkins
+- docker
+- scripts de start
+- formatação do request como serializer do bunyan
