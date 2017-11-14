@@ -28,7 +28,7 @@
             "request": "launch",
             "program": "${workspaceRoot}/app.js",
             "env": {
-                "NODE_ENV": "default"
+                "NODE_ENV": "staging"
             }
         },
         {
