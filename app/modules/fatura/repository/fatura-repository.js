@@ -5,9 +5,9 @@ class FaturaRepository {
     }
 
     carregar({ id, mes, ano }) {
-        return this.model.findOne({ cliente: id, mes, ano });
+       // return this.model.findOne({ cliente: id, mes, ano });
         // exemplo sem banco de dados
-        //return Promise.resolve({ valor: 56.21, cliente: id, mes, ano });
+        return Promise.resolve({ valor: 56.21, cliente: id, mes, ano });
     }
 }
 
