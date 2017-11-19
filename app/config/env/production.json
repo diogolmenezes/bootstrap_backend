@@ -49,5 +49,12 @@
                 }
             ]
         }
+    },
+    "origin": {
+        "require": {
+            "application": true,
+            "channel": true,
+            "device": true
+        }
     }
 }

@@ -6,6 +6,7 @@ class RestifyConfig {
         this.restify = require('restify');
         this.server = null;
         this.logger = require('./log')();
+        this.origin = require('./plugins/origin');
     }
 
     configure() {
@@ -31,6 +32,9 @@ class RestifyConfig {
         this.server.use(this.restify.plugins.bodyParser());
         this.server.use(this.restify.plugins.requestLogger());
         this.server.use(this.restify.plugins.throttle({ burst: 10, rate: 0.5, ip: true }));
+
+        // habilitando o plugin de origem
+        this.server.use(this.origin.proccess.bind(this.origin));
 
         // habilitando o logs do request e do response
         require('./plugins/request-logger')(this.server).configure();

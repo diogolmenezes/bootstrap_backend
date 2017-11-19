@@ -12,6 +12,9 @@ describe('Fatura', () => {
     it('Deve retornar uma fatura', (done) => {
         supertest(server)
             .get('/minha-aplicacao/cliente/1/fatura/12/2017')
+            .set('x-origin-application', 'minha-aplicacao')
+            .set('x-origin-channel', 'teste')
+            .set('x-origin-device', 'desktop')
             .expect('Content-Type', /json/)
             .expect(200)
             .end(function (err, res) {
