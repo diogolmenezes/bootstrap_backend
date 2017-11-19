@@ -25,31 +25,59 @@ class Authentication {
     // curl -H 'Authorization: Baerer um_token_jwt' -X 'GET' localhost:3000/aplicacao/saldo
     protect(req, res, next) {
 
-        let isEnabled = this.config.authentication && this.config.authentication.jwt && this.config.authentication.jwt.enabled;
+        let isEnabled = this.config.authentication && this.config.authentication.enabled;
+        let hasSentAuthorization = Object.keys(req.authorization).length;
 
         if (isEnabled) {
 
             // A propriedade req.authorization é o resultado do parse realizado pelo plugin
             // this.server.use(this.restify.plugins.authorizationParser());  definido nas configurações de middleware do restify
-            // caso ele seja desabilitado, podemos recuperar o header dessa forma req.header('Authorization')
-            let token = req.authorization.credentials
+            // caso ele seja desabilitado, podemos recuperar o header direto do header req.header('Authorization')
 
-            this.jwt.verify(token, this.config.authentication.jwt.secret, (err, decoded) => {
-
-                if (err) {
-                    if (err.name === 'TokenExpiredError')
-                        return next(this.applicationErrors.throw('JWT expirado.', 'ForbiddenError')); // 403
-
-                    return next(this.applicationErrors.throw('Acesso negado.', 'UnauthorizedError')); // 401
+            if (hasSentAuthorization) {
+                switch (this.config.authentication.scheme) {
+                    case 'Basic': this.basicValidate(req, res, next); break;
+                    case 'Baerer': this.baererValidate(req, res, next); break;
+                    default:
+                        return next(this.applicationErrors.throw('Acesso negado.', 'UnauthorizedError')); // 401
                 }
-
-                req.user = decoded.data;
-
-                return next();
-            });
+            }
+            else {
+                res.header('WWW-Authenticate', `${this.config.authentication.scheme} realm="Acessar API"`);
+                return next(this.applicationErrors.throw('Acesso negado.', 'UnauthorizedError')); // 401
+            }
         }
         else
             return next();
+    }
+
+    basicValidate(req, res, next) {
+
+        let { username, password } = req.authorization.basic;
+
+        // ALTERE AQUI, caso você esteja utilizando autenticação basica 
+        if (username == 'admin' && password == 'admin')
+            next();
+        else
+            next(this.applicationErrors.throw('Usuário ou senha inválidos.', 'ForbiddenError'));
+    }
+
+    baererValidate(req, res, next) {
+
+        this.jwt.verify(req.authorization.credentials, this.config.authentication.jwt.secret, (err, decoded) => {
+
+            if (err) {
+                if (err.name === 'TokenExpiredError')
+                    next(this.applicationErrors.throw('JWT expirado.', 'ForbiddenError')); // 403
+                else
+                    next(this.applicationErrors.throw('Acesso negado.', 'UnauthorizedError')); // 401
+            }
+            else {
+                req.user = decoded.data;
+                next();
+            }
+        });
+
     }
 }
 
