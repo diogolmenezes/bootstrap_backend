@@ -11,6 +11,10 @@
             "poolSize": 10
         }
     },
+    "redis": {
+        "host": "localhost",
+        "port": 6379
+    },
     "log": {
         "debug": true,
         "bunyan": {

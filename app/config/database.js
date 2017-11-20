@@ -2,7 +2,7 @@
 class Database {
     constructor() {
         this.config = require('../config');
-        this.logger = require('../config/log')();
+        this.logger = require('../config/log')({ module: 'Database' });
         this.mongoose = require('mongoose');
         this.mongoose.Promise = global.Promise;
 
@@ -20,7 +20,7 @@ class Database {
                 });
 
             this.mongoose.connection.on('close', () => {
-                this.logger.error(`A conexão com o banco de dados foi fechada [${this.config.db.url}]`);
+                this.logger.debug(`A conexão com o banco de dados foi fechada [${this.config.db.url}]`);
             })
         }
     }

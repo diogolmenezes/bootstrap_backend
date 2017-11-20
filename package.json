@@ -12,11 +12,13 @@
   "author": "Oi Digital",
   "license": "ISC",
   "dependencies": {
+    "bluebird": "^3.5.1",
     "bunyan": "^1.8.12",
     "glob": "^7.1.2",
     "jsonwebtoken": "^8.1.0",
     "mongoose": "^4.13.1",
     "pretty-format": "^21.2.1",
+    "redis": "^2.8.0",
     "restify": "^6.3.2"
   },
   "devDependencies": {

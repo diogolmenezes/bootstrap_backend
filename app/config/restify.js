@@ -5,7 +5,7 @@ class RestifyConfig {
         this.config = require('../config');
         this.restify = require('restify');
         this.server = null;
-        this.logger = require('./log')();
+        this.logger = require('./log')({ module: 'Restify' });
         this.origin = require('./plugins/origin');
     }
 

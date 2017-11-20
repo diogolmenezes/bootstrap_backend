@@ -5,6 +5,7 @@ class Authorization {
         this.applicationErrors = require('./errors');
         this.jwt = require('jsonwebtoken');
         this.config = require('../config');
+        this.logger = require('./log')({ module: 'Authorization' });
     }
 
     // Cria um novo token JWT.
