@@ -15,6 +15,8 @@
 - Controle de rate limit pre-configurado
 - Readme mais util para o projeto
 - melhor controle dos status code das apis 
+- integração com o REDIS
+- tratamento de origens ( aplicação, canal e device )
 
 ---
 
