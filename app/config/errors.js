@@ -49,7 +49,7 @@ class ApplicationErrors {
 
     // loga automaticamente os erros lançados pelo sistema    
     handle(req, res, error, callback) {
-        this.logger.error(error.message, { path: req.path(), error });
+        this.logger.error(error.message, { path: req.path(), stack: error.stack, error });
 
         // Ex.: caso queira fazer algum handle diferenciado 
         // dos seus erros, você pode fazer aqui:
